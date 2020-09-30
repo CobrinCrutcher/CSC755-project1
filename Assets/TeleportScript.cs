@@ -9,6 +9,8 @@ public class TeleportScript : MonoBehaviour
 
     public Transform playerBody;
 
+    public AudioSource teleportSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,9 +29,11 @@ public class TeleportScript : MonoBehaviour
                 Debug.Log(hit.distance);
                 if (hit.collider.tag == "TeleportLocation")
                 {
+                    if (playerBody.transform.position != hit.collider.transform.position + Vector3.up * teleportHeight)
+                    {
+                        teleportSound.Play();
+                    }
                     playerBody.transform.position = hit.collider.transform.position + Vector3.up * teleportHeight;
-                    //playerBody.transform.position.Set(playerBody.transform.position.x, playerBody.transform.position.y + teleportHeight, playerBody.transform.position.z);
-                    
                 }
             }
         }
